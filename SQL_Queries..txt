@@ -1,0 +1,269 @@
+7th Highest-Salary
+
+select salary from employee ORDER BY DESC LIMIT(1) OFFSET(6) FIRST
+
+
+1. Write a SQL query to fetch "FIRST_NAME" from the Student table in upper case and use ALIAS name as STUDENT_NAME.
+
+select upper(STUDENT_NAME) as fName from Student
+
+
+2. Write a SQL query to fetch unique values of MAJOR Subjects from Student table.
+
+
+Select DISTINCT Major from student;
+
+
+3. Write a SQL query to print the first 3 characters of FIRST_NAME from Student table.
+
+Select SUBSTRING(FIRST_NAME,1,3) From Student;
+
+
+4. Write a SQL query to find the position of alphabet ('a') int the first name column 'Shivansh' from Student table.
+
+Select INSTR(LOWER(FIRST_NAME),'a') from Student where FIRST_NAME='Shivansh';
+
+
+5. Write a SQL query that fetches the unique values of MAJOR Subjects from Student table and print its length.
+
+Select DISTINCT MAJOR, LENGTH(Major) from Student;
+
+6. Write a SQL query to print FIRST_NAME from the Student table after replacing 'a' with 'A'.
+
+Select replace(FIRST_NAME,"a","A") from Student;
+
+
+
+7. Write a SQL query to print the FIRST_NAME and LAST_NAME from Student table into single column COMPLETE_NAME.
+
+Select CONCAT(FIRST_NAME, ' ', LAST_NAME) AS COMPLETE_NAME from Student;
+
+
+
+8. Write a SQL query to print all Student details from Student table order by FIRST_NAME Ascending and MAJOR Subject descending .
+
+Select * from Student ORDER BY FIRST_NAME ASC && MAJOR DESC;
+
+
+9. Write a SQL query to print details of the Students with the FIRST_NAME as 'Prem' and 'Shivansh' from Student table.
+
+Select * from Student where FIRST_NAME IN ("PREM","SHIVANSH");
+
+10. Write a SQL query to print details of the Students excluding FIRST_NAME as 'Prem' and 'Shivansh' from Student table.
+
+Select * from Student where FIRST_NAME NOT IN ("PREM","SHIVANSH");
+
+
+11 a) . Write a SQL query to print details of the Students whose FIRST_NAME ends with 'a'.
+
+Select * from Student where FIRST_NAME LIKE '%a' 
+
+11 b) . Write a SQL query to print details of the Students whose FIRST_NAME starts with 'a'.
+
+Select * from Student where FIRST_NAME LIKE 'a%' 
+
+
+12. Write an SQL query to print details of the Students whose FIRST_NAME ends with ‘a’ and contains five alphabets.
+
+Select * from Student where FIRST_NAME LIKE '____a';
+
+
+13. Write an SQL query to print details of the Students whose GPA lies between 9.00 and 9.99.
+
+Select * from Student where GPA BETWEEN 9.00 AND 9.99;
+
+
+14. Write an SQL query to fetch the count of Students having Major Subject ‘Computer Science’.
+
+Select MAJOR, count(*) from Students where MAJOR='Computer Science';
+
+15. Write an SQL query to fetch Students full names with GPA >= 8.5 and <= 9.5.
+
+Select FUll_NAME,GPA from Students where GPA BETWEEN 8.5 AND 9.5;
+
+
+16. Write an SQL query to fetch the no. of Students for each MAJOR subject in the descending order.
+
+SELECT COUNT(MAJOR), MAJOR from Student GROUP BY MAJOR ORDER BY COUNT(MAJOR) DESC.
+
+
+17. Display the details of students who have received scholarships, including their names, scholarship amounts, and scholarship dates.
+
+Select Student.FIRST_NAME,Student.LAST_NAME,Student.SCHOLARSHIP_AMOUNT, Student.SCHOLARSHIP_DATE from Students INNER JOIN Scholarship ON Student.STUDENT_ID=Scholarship_STUDENT_REF_ID;
+
+
+18. Write an SQL query to show only odd rows from Student table.
+
+Select * from Student where STUDENT_ID % 2!= 0;
+
+
+19. Write an SQL query to show only even rows from Student table
+
+Select * from Student where STUDENT_ID % 2 = 0;
+
+
+20. List all students and their scholarship amounts if they have received any. If a student has not received a scholarship, display NULL for the scholarship details.
+
+Select * from Student LEFT JOIN Scholarship ON Student.Student_ID=Scholarship.Student_Ref_Id
+
+
+
+21. Write an SQL query to show the top n (say 5) records of Student table order by descending GPA.
+
+
+Select * from Student Order By gpa DESC LIMIT 5
+
+
+22. Write an SQL query to determine the nth (say n=5) highest GPA from a table.
+
+Select GPA from Student ORDER BY GPA DESC LIMIT 1 OFFSET 4
+
+
+🔍 Explanation:
+
+ORDER BY GPA DESC → sorts GPAs from highest to lowest.
+OFFSET 4 → skips the top 4 records.
+LIMIT 1 → returns the 5th record (i.e., the 5th highest GPA).
+
+
+
+
+24. Write an SQL query to fetch the list of Students with the same GPA.
+
+SELECT s1.* FROM Student s1, Student s2 WHERE s1.GPA = s2.GPA AND s1.Student_id != s2.Student_id;
+
+
+// OR 
+
+Select s2.* from Student s1 Student s2 where s1.GPA=s2.GPA AND s1.id!=s2.id
+
+
+
+25 a). Write an SQL query to show the second highest GPA from a Student table using sub-query.
+
+Select * from Student ORDER BY GPA DESC limit 1 OFFSET 1
+
+Select MAX(GPA) from Student where GPA NOT IN (Select MAX(GPA) from Student);
+
+25 b) Select name of those Students whose marks is greater than Average marks of the Students;
+
+Select name from Student where marks > (Select AVG(marks) from student);
+
+
+26. Write an SQL query to show one row twice in results from a table.
+
+
+Select * from student UNION ALL Select * from Student ORDER BY Student_id;
+
+
+
+27. Write an SQL query to list STUDENT_ID who does not get Scholarship.
+
+
+
+Select STUDENT_ID from Student where STUDENT_ID NOT IN (Select STUDENT_REF_ID from Scholarship);
+
+
+// OR
+
+
+Select s1.name from student as s1 Left join scholarship as s2 on s1.student_id = s2.student_ref_id where s2.student_ref_id Is Null;
+
+
+
+Select name from student group by program_name having marks > 60;
+
+
+
+28. Write an SQL query to fetch the first 50% records from a table.
+
+
+Select * from student Limit ((Select Count(*) from student)/2);
+
+
+
+
+
+
+29. Write an SQL query to fetch the MAJOR subject that have less than 4 people in it.
+
+
+Select MAJOR from Student GROUP BY MAJOR having count(*)<4;
+
+
+
+30. Write an SQL query to show all MAJOR subject along with the number of people in there.
+
+Select MAJOR, count(MAJOR) AS All_Major from Student GROUP BY MAJOR;
+
+
+
+
+
+
+31. Write an SQL query to show the last record from a table.
+
+SELECT * FROM Student ORDER BY id DESC LIMIT 1;
+
+// OR
+
+Select * from Student where Student_ID=(Select MAX(Student_ID) from Student);
+
+
+32. Write an SQL query to fetch the first row of a table.
+
+Select * from Student limit(1);
+
+// OR
+
+Select * from Student where Student_ID=(Select MIN(Student_ID) from Student);
+
+
+
+
+33. Write an SQL query to fetch the last five records from a table.
+
+Select * from Student ORDER BY Student_ID DESC limit 5;
+
+// OR
+
+SELECT * 
+FROM (
+    SELECT * 
+    FROM Student 
+    ORDER BY STUDENT_ID DESC 
+    LIMIT 5
+) AS subquery
+ORDER BY STUDENT_ID;	
+
+// OR but will not work in sql
+
+SELECT * FROM Student LIMIT x OFFSET (SELECT COUNT(*) - x FROM Student);
+
+
+
+34. Select MAX marks from a student whose city is DELHI.
+
+Select city, MAX(Marks) from Student GROUP BY CITY having city='DELHI';
+
+// OR
+
+Select max(marks) from student where city="Delhi"
+
+	// OR
+
+Select max(marks) from (Select * from student where city = "Delhi";
+) temp;
+
+
+
+
+
+
+
+
+
+
+
+
+
