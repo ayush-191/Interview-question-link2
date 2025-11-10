@@ -1,0 +1,545 @@
+
+
+
+Singleton-Pattern
+
+
+
+
+
+
+
+ORM
+JPA vs Hibernate
+@Transient
+@Trasanction
+projection, hydration
+lag and lead
+why don't we use set instead of arraylist
+security flow of jwt with token
+servlet
+dispatcher
+volatile keyword
+@Json Ignore
+JIT compiler
+Transactional Scope
+Is tomcat necessary to start springboot
+how to run springboot application fast
+what is parallel stream
+Is @ID thread safe in which circumstances
+ORM provider in springboot
+how set determine that it is duplicated object
+how are values added to string constant pool
+finalize, lazy Initialize
+star pattern printing
+different ways to create object
+stream
+greater than question in stream
+comparable vs comparator
+thread, Deadlock
+
+which tool is used to test perfomance, junit testing
+Mockito testing
+controller security me kya krega
+how to apply 
+before security what happen in authentication
+
+
+28-08-25 mercities
+
+flow of api and authentication 
+how to do store session in your cropDeal
+java 8 features
+optional
+sql query:- join in sql
+why did you use jwt instead of Oauth in your project.
+
+
+
+
+
+
+22-10-2025
+
+
+==== JAVA INTERVIEW QUESTIONS ====
+
+Exception Handling
+List vs Set
+StringBuffer vs StringBuilder
+Map
+Multithread
+finally
+
+
+
+==== ANGULAR INTERVIEW QUESTIONS ====
+
+Anular version
+version of bootstram
+semantic tag in spring-boot
+header & footer
+stick vs fixed footer
+what are the input types used
+Reactive vs template forms
+How did you do data-binding using template/reactive forms
+How the data are renders and what are the different ways to render the data like interpolation
+Display flex : for center div from both left/right and buttom/top
+remove duplicate element from array.
+
+
+
+
+
+
+
+mid=left-(left-right)/2
+
+
+
+
+
+
+Caching stores frequently accessed data in a temporary, faster location to improve application performance by reducing the need to fetch it from slower, permanent storage.
+A session stores user-specific data for the duration of their interaction with a website or application, allowing data to be preserved across multiple requests. The primary difference is that caching is for general performance improvement of data retrieval, while sessions are for maintaining user-specific context and data. 
+
+
+
+@FunctionalInterface annotation is optional but it is a good practice to use. It helps catching the error in early stage by making sure that the interface has only one abstract method
+A functional interface is defined using the @FunctionalInterface annotation (optional but recommended). It ensures the interface has only one abstract method, and the compiler will throw an error if more than one is present.
+
+Java provides many ready-to-use ones:
+
+Consumer<T> → takes input, no return
+
+Predicate<T> → returns boolean
+
+Function<T,R> → takes input, returns output
+
+Supplier<T> → no input, returns value
+
+
+Functional Interface and its types.
+discuss these functional interface Consumer, Predicate, Function ,Supplier
+
+
+
+
+@PreAuthorize("ADMIN")
+postmapping, putmapping,patchm, requestmapping, pathvariable,requestbody, request param, template vs feign client.
+controller vs restcontroller
+hibernate vs jpa working
+jwt working
+why we don't use oauth
+why we don't create session
+why did you make this case study
+if there is network issue then how will the website load
+if farmer does not know how to use or navigate website how will the farmer use this
+
+
+Shallow copy and deep copy
+
+
+List is used to store cartItems in dealer service :   List<CartItem> cart = dealer.getDealerCart();
+Map is used in auth service to store token :
+//        Token ke andar daalne wale extra info (custom claims) ke liye map banaya.
+        Map<String , Object> claims = new HashMap<>();
+//        claims.put("role" , role);
+
+
+A transaction is a unit of work → either all operations succeed (commit) or all fail (rollback)
+
+
+
+
+
+// API-Gateway
+"The JwtAuthenticationFilter sits in the API Gateway and intercepts every request before routing. First, it checks if the request has an Authorization header with a Bearer token. Then, it validates the JWT using a secret key and extracts the claims. Based on the user’s role in the token, it enforces role-based access to specific routes, for example only ADMIN can access /api/admin. If the token is missing, invalid, or the role doesn’t match, it blocks the request right away. Otherwise, it allows the request to proceed to the downstream service. Running this filter early improves both security and efficiency by stopping unauthorized requests as soon as possible."
+
+
+
+
+
+//  JWT-Authentication
+
+In my project, authentication is handled with JWT. At login, the user provides email and password, which are verified using Spring Security’s AuthenticationManager and UserDetailsService. If valid, a JWT access token and refresh token are generated. The access token contains the user’s role and email, signed with a secret key. For every secured API request, the JWT filter intercepts, extracts, and validates the token. If valid, the request proceeds; otherwise, it’s blocked. The refresh token allows generating a new access token without logging in again. We also use JWTs for password reset links, which ensures secure stateless authentication.”
+
+
+
+
+
+🔹 Comparable Interface
+
+Package java.lang
+Method compareTo(T o)
+Used to define the natural ordering of objects.
+Implemented inside the class whose objects need to be sorted.
+Typically used when you want to sort by a single field (e.g., name or age).
+Usage with Collections.sort(list)
+
+🔹 Comparator Interface
+Package java.util
+Method compare(T o1, T o2)
+Used to define custom ordering of objects.
+Implemented outside the class, allowing multiple sorting strategies.
+Useful when you want to sort by different fields or multiple criteria.
+Usage with Collections.sort(list, comparator)
+
+
+
+
+===== Comparable Interface=== 
+
+import java.util.*;
+
+public class Student implements Comparable<Student> {
+    String name;
+    int age;
+
+    Student(int age, String name) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // Compare by name
+    @Override
+    public int compareTo(Student s) {
+        return this.name.compareTo(s.name);
+    }
+
+    @Override
+    public String toString() {
+        return name + " (" + age + ")";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        List<Student> ls = new ArrayList<>();
+        Student s1 = new Student(21, "Ayush");
+        Student s2 = new Student(23, "Amit");
+        ls.add(s1);
+        ls.add(s2);
+
+        Collections.sort(ls); // uses compareTo
+        ls.forEach(System.out::println);
+    }
+}
+
+
+2.  ======= Comparator Interface =====
+
+
+import java.util.*;
+
+class Student {
+    String name;
+    int age;
+
+    Student(int age, String name) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return name + " (" + age + ")";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        List<Student> ls = new ArrayList<>();
+        Student s1 = new Student(21, "Ayush");
+        Student s2 = new Student(23, "Amit");
+        ls.add(s1);
+        ls.add(s2);
+
+        // Sort using Comparator by name
+        Collections.sort(ls, new Comparator<Student>() {
+            @Override
+            public int compare(Student s1, Student s2) {
+                return s1.name.compareTo(s2.name);
+            }
+        });
+
+        ls.forEach(System.out::println);
+    }
+}
+
+
+
+
+
+
+=====================  Serializable and Deserializable ========================
+
+import java.io.*;
+
+class Student implements Serializable{
+    String name;
+    int age;
+    Student(String name,int age){
+        this.name=name;
+        this.age=age;
+    }
+
+}
+public class Serializable_Deserializable {
+    public static void main(String[] args) {
+        Student std=new Student("Ayush",21);
+
+      // Serializable Code
+        try{
+            FileOutputStream out=new FileOutputStream("std.txt");
+            ObjectOutputStream obj=new ObjectOutputStream(out);
+            obj.writeObject(std);
+            obj.close();
+
+        }
+        catch (IOException ex){
+            System.out.println(ex);
+        }
+
+        // Deserializable Code
+        Student student=null;
+        try{
+
+            FileInputStream inp=new FileInputStream("std.txt");
+            ObjectInputStream inObj=new ObjectInputStream(inp);
+            student=(Student) inObj.readObject();
+            inObj.close();
+
+        }
+        catch (IOException | ClassNotFoundException ex){
+            System.out.println(ex);
+
+        }
+
+        System.out.println("Student name is "+student.name+" Student age is "+student.age);
+    }
+}
+
+
+
+
+
+
+==============  Deadlock=======================
+
+public class Deadlock{
+    public static void main(String args[]){
+        final Object res1="R1";
+        final Object res2="R2";
+        Thread t1=new Thread(()->{
+            synchronized (res1){
+                try{
+                    System.out.println("Resource-1 is locked");
+                    Thread.sleep(50);
+                }
+                catch (Exception e){
+                    System.out.println(e);
+
+                }
+                synchronized (res2){
+                    System.out.println("Resource-1 is locked and wating for Resource-2");
+
+                }
+            }
+        });
+        Thread t2=new Thread(()->{
+            synchronized (res2){
+                try{
+                    System.out.println("Resource-2 is locked");
+                    Thread.sleep(50);
+                }
+                catch (Exception E){
+                }
+                synchronized (res1){
+                    System.out.println("Resource-2 is locked and wating for Resource-1");
+
+                }
+            }
+        });
+        t1.start();
+        t2.start();
+    }
+
+}
+
+
+
+
+
+
+
+=======      Custom Exception ======
+
+
+Custom Exceptions in Java
+
+In Java, custom exceptions (also known as user-defined exceptions) allow developers to create their own exception classes to handle specific application requirements. These exceptions extend either the Exception class (for checked exceptions) or the RuntimeException class (for unchecked exceptions). This approach provides more meaningful error handling and improves debugging by encapsulating application-specific logic.
+
+Creating a Custom Exception
+
+To create a custom exception, follow these steps:
+
+Define a new class that extends Exception (for checked exceptions) or RuntimeException (for unchecked exceptions).
+
+Provide constructors to initialize the exception with custom messages or causes.
+
+Optionally, add methods to provide additional details about the exception.
+
+Example 1: Checked Custom Exception
+
+Checked exceptions must be declared in the throws clause of the method signature. Here's an example:
+
+public class InvalidAgeException extends RuntimeException{
+	
+	public void InvalidAgeException(String message){
+		super(message);
+	}	
+
+}
+public class Main{
+
+	public void canVote(age) throws InvalidAgeException{
+		if(age<18){
+			throw new InvalidAgeException("Age must be greater than 18");
+		}
+	}
+	public static void main(String[]args){
+		int age=20;
+		try{
+			if(age>=18){
+				canVote(age);
+			}
+		}
+		catch(InvalidAgeException ex){
+			System.out.println("Exception "+ex.getMessage());
+		}
+	}
+}
+
+public class fileNotFoundEx extends RuntimeException{
+	public static void fileNotFoundEx(String message){
+		super(message);
+	}
+		
+}
+
+
+
+
+
+
+
+
+Global Exception Handler in Java
+
+A Global Exception Handler is a centralized mechanism to handle exceptions across an entire application, ensuring consistent error handling and reducing repetitive code. It is particularly useful in frameworks like Spring or in Java applications where exceptions need to be managed uniformly.
+
+Implementation in Spring Framework
+
+In Spring, a Global Exception Handler can be implemented using the @ControllerAdvice annotation. This allows you to define exception-handling logic that applies to all controllers in the application. For example:
+
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+	@ExceptionHandler(ResourceNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException ex) {
+		return new ResponseEntity<>("Resource not found: " + ex.getMessage(), HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public ResponseEntity<String> handleGenericException(Exception ex) {
+		return new ResponseEntity<>("An error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+}
+
+
+
+
+
+Why Static Block Executes First
+
+🔹 Static blocks are executed when the class is loaded into memory, before any method (including main) is called.
+🔹 The main() method is just a regular static method. It is the entry point of the program, but class loading happens first, and during that process, static blocks are executed.
+
+
+class Main {
+
+    static {
+        System.out.println("Static block executed.");
+        main(2);
+    }
+
+    static {
+        System.out.println("Static block part-2 executed");
+        main(100);
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Main method executed.");
+        Main.main(23);
+    }
+
+    static void main(int x) {
+        System.out.println("2nd method " + x);
+    }
+}
+
+Output:-  
+
+Static block executed.
+2nd method 2
+Static block part-2 executed
+2nd method 100
+Main method executed.
+2nd method 23
+
+
+
+
+for(int num:arr){
+	hm.put(num,hm.getOrDefault(num,0)+1);	
+}
+for(Map.Entry<String,Integer>entry:map.entrySet()){
+	sout(entry.getValue+" "+entry.getKey());
+}
+ 
+for(Map.Entry<String,Integer>entry:map.entrySet())
+
+
+
+
+1. What is Optional in Java?
+Answer:
+Optional is a container object introduced in Java 8 that may or may not contain a non-null value. It helps avoid NullPointerException and makes the code more readable by explicitly handling the absence of a value.
+
+Optional<User> user = findUserById(id);
+user.map(User::getName).orElse("Unknown");
+
+. What are the main methods of Optional?
+Answer:
+
+isPresent() – checks if a value is present.
+ifPresent(Consumer) – executes code if value is present.
+orElse(T) – returns value or default.
+orElseGet(Supplier) – returns value or calls a supplier.
+orElseThrow() – throws exception if value is absent.
+map(Function) – transforms the value.
+flatMap(Function) – similar to map but avoids nested Optionals.
+
+
+
+@RequestParam:- It helps you get values from the URL like ?name=Ayush&age=25 and use them inside your Java method
+
+
+
+
+
+In shallow copy, only fields of primitive data type are copied while the objects references are not copied. Deep copy involves the copy of primitive data type as well as object references. There is no hard and fast rule as to when to do shallow copy and when to do a deep copy. Lazy copy is a combination of both of these approaches
